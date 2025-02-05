@@ -71,9 +71,9 @@ def create_service_analysis(df):
 
 def create_correlation_heatmap(df):
     """Create correlation heatmap for numeric features"""
-    numeric_cols = df.select_dtypes(include=[np.number]).columns
+    df_dropped = df.drop(["num_outbound_cmds", "is_host_login"], axis=1)
+    numeric_cols = df_dropped.select_dtypes(include=[np.number]).columns
     df_numeric = df[numeric_cols]
-    df_numeric.drop(["num_outbound_cmds", "is_host_login"], axis=1, inplace=True)
     corr = df_numeric.corr()
 
     fig = px.imshow(

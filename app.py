@@ -143,6 +143,11 @@ elif page == "Traffic Analysis":
     st.subheader("Bytes vs Duration")
     st.plotly_chart(create_bytes_duration_plots(df), use_container_width=True)
 
+    st.markdown("""
+        - Anomalies often exhibit larger values for destination bytes
+        - Anomalies tend to have longer durations and higher source byte values, forming separable patterns from normal traffic.
+    """)
+
     # Error rate distributions
     st.subheader("Error Rate Distributions")
     error_dists = create_error_rate_distributions(df)
@@ -161,6 +166,11 @@ elif page == "Protocol & Services":
     with col2:
         st.plotly_chart(create_service_analysis(df), use_container_width=True)
 
+    st.markdown("""
+        - The majority of records are associated with a few dominant protocol types, such as tcp, udp, and icmp.
+        - The service column shows a wide variety of services, with a few services like http, private, and domain_u being much more common than others.
+    """)
+
     # Additional protocol details
     st.subheader("Protocol Details")
     st.dataframe(df.groupby("protocol_type")["class"].value_counts().unstack())
@@ -172,6 +182,11 @@ elif page == "Feature Analysis":
     # Correlation heatmap
     st.subheader("Feature Correlations")
     st.plotly_chart(create_correlation_heatmap(df), use_container_width=True)
+
+    st.markdown("""
+        - Strong positive and negative correlations are observed between several features.
+        - Features like dst_host_same_srv_rate, dst_host_srv_serror_rate, and dst_host_count exhibit patterns that may be useful for model-building.
+    """)
 
     # Feature statistics
     st.subheader("Feature Statistics")
