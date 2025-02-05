@@ -50,15 +50,22 @@ def create_protocol_analysis(df):
 
 
 def create_service_analysis(df):
-    """Analyze top services"""
-    top_services = df["service"].value_counts().head(10)
-    fig = px.bar(
-        x=top_services.index,
-        y=top_services.values,
-        title="Top 10 Services",
-        labels={"x": "Service", "y": "Count"},
+    """Analyze top services by traffic class"""
+    # Get top 10 services
+    top_10_services = df["service"].value_counts().head(10).index
+
+    # Filter df and keep only needed columns
+    long_df = df[df["service"].isin(top_10_services)][["service", "class"]]
+
+    fig = px.histogram(
+        long_df,
+        x="service",
+        color="class",
+        title="Top 10 Services Distribution by Traffic Class",
+        labels={"service": "Service", "count": "Count"},
         color_discrete_sequence=px.colors.qualitative.Set3,
     )
+
     return fig
 
 
@@ -130,5 +137,4 @@ def get_data_description():
     """Load content from description.md file"""
     with open("description.md", "r") as f:
         description = f.read()
-    return description
     return description
