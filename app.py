@@ -258,6 +258,12 @@ else:
                 predictions = model.predict(X_test_scaled)
                 probabilities = model.predict_proba(X_test_scaled)
 
+                # Add predictions to df_test
+                df_test["predicted_class"] = [
+                    "Normal" if p == 0 else "Anomaly" for p in predictions
+                ]
+                df_test["prediction_confidence"] = [max(prob) for prob in probabilities]
+
                 # Display results
                 st.write("#### Test Data Predictions")
 
@@ -271,7 +277,7 @@ else:
                     }
                 )
 
-                st.dataframe(results_df.head(10))
+                st.dataframe(df_test.head(10))
 
                 # Show distribution of predictions
                 fig = px.pie(
