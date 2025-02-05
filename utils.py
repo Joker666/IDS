@@ -32,7 +32,7 @@ def create_traffic_distribution(df):
         values=traffic_dist.values,
         names=traffic_dist.index,
         title="Distribution of Normal vs Anomaly Traffic",
-        color_discrete_sequence=px.colors.qualitative.Set3,
+        color_discrete_sequence=px.colors.qualitative.Set2,
     )
     return fig
 
@@ -44,7 +44,7 @@ def create_protocol_analysis(df):
         protocol_class,
         title="Protocol Distribution by Traffic Class",
         barmode="group",
-        color_discrete_sequence=px.colors.qualitative.Set3,
+        color_discrete_sequence=px.colors.qualitative.Set2,
     )
     return fig
 
@@ -63,7 +63,7 @@ def create_service_analysis(df):
         color="class",
         title="Top 10 Services Distribution by Traffic Class",
         labels={"service": "Service", "count": "Count"},
-        color_discrete_sequence=px.colors.qualitative.Set3,
+        color_discrete_sequence=px.colors.qualitative.Set2,
     )
 
     return fig
@@ -97,7 +97,7 @@ def create_feature_distributions(df):
             color="class",
             title=f"Distribution of {feature}",
             marginal="box",
-            color_discrete_sequence=px.colors.qualitative.Set3,
+            color_discrete_sequence=px.colors.qualitative.Set2,
         )
         figs.append(fig)
 
@@ -123,7 +123,7 @@ def create_bytes_duration_plots(df):
         facet_col="byte_type",
         labels={"duration": "Duration (s)", "bytes": "Bytes", "class": "Traffic Class"},
         title="Network Traffic Duration vs Bytes",
-        color_discrete_sequence=px.colors.qualitative.Set3,
+        color_discrete_sequence=px.colors.qualitative.Set2,
     )
 
     # Clean up facet labels
@@ -145,7 +145,7 @@ def create_error_rate_distributions(df):
             x="class",
             y=feature,
             title=f"Distribution of {feature}",
-            color_discrete_sequence=px.colors.qualitative.Set3,
+            color_discrete_sequence=px.colors.qualitative.Set2,
         )
         figs.append(fig)
 
