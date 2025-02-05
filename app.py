@@ -5,6 +5,7 @@ import streamlit as st
 
 from ml_utils import load_model, preprocess_data, save_model, train_model
 from utils import (
+    create_bytes_duration_plots,
     create_correlation_heatmap,
     create_error_rate_distributions,
     create_feature_distributions,
@@ -137,6 +138,10 @@ elif page == "Traffic Analysis":
         - There are significant outliers in both src_bytes and dst_bytes.
         - The distributions for anomaly and normal classes differ, suggesting potential discriminatory power for classification.
     """)
+
+    # Bytes vs Duration plots
+    st.subheader("Bytes vs Duration")
+    st.plotly_chart(create_bytes_duration_plots(df), use_container_width=True)
 
     # Error rate distributions
     st.subheader("Error Rate Distributions")

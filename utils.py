@@ -104,6 +104,36 @@ def create_feature_distributions(df):
     return figs
 
 
+def create_bytes_duration_plots(df):
+    """Create scatterplots comparing duration with src_bytes and dst_bytes"""
+    # Melt the dataframe to create long format for src and dst bytes
+    bytes_df = pd.melt(
+        df,
+        value_vars=["src_bytes", "dst_bytes"],
+        id_vars=["duration", "class"],
+        var_name="byte_type",
+        value_name="bytes",
+    )
+
+    fig = px.scatter(
+        bytes_df,
+        x="duration",
+        y="bytes",
+        color="class",
+        facet_col="byte_type",
+        labels={"duration": "Duration (s)", "bytes": "Bytes", "class": "Traffic Class"},
+        title="Network Traffic Duration vs Bytes",
+        color_discrete_sequence=px.colors.qualitative.Set3,
+    )
+
+    # Clean up facet labels
+    fig.for_each_annotation(
+        lambda a: a.update(text=a.text.split("=")[1].replace("_", " ").title())
+    )
+
+    return fig
+
+
 def create_error_rate_distributions(df):
     """Create box plots for error rate"""
     key_features = ["serror_rate", "rerror_rate", "srv_serror_rate", "srv_rerror_rate"]
