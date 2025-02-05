@@ -58,21 +58,18 @@ page = st.sidebar.radio(
 if page == "Overview":
     st.header("Dataset Overview")
 
-    st.html("""
-    <p>
+    st.markdown("""
     The Network Intrusion Detection dataset contains network traffic data simulated in a military network environment.
     It simulates a typical US Air Force LAN under attack. The goal is to classify the traffic as either normal or anomalous,
     which can be useful for identifying potential security threats. The dataset is based on various features such as protocol,
     service, flag, and more. The dataset is useful for training machine learning models to detect potential security
     threats in network traffic.
 
-    <p>Characteristics of the dataset:</p>
-    <ul style="padding-left: 16px;">
-        <li>Sequence of TCP packets within a time duration.</li>
-        <li>Data flows between a source IP and a target IP under a defined protocol.</li>
-        <li>Each connection is labeled as normal or an attack.</li>
-    </ul>
-    </p>
+    Characteristics of the dataset:
+
+    * Sequence of TCP packets within a time duration.
+    * Data flows between a source IP and a target IP under a defined protocol.
+    * Each connection is labeled as normal or an attack.
     """)
 
     # Display basic stats
@@ -135,6 +132,11 @@ elif page == "Traffic Analysis":
     feature_dists = create_feature_distributions(df)
     for fig in feature_dists:
         st.plotly_chart(fig, use_container_width=True)
+    st.markdown("""
+        - All traffic features exhibit highly skewed distributions, with most values concentrated near the lower ranges and occasional large outliers.
+        - There are significant outliers in both src_bytes and dst_bytes.
+        - The distributions for anomaly and normal classes differ, suggesting potential discriminatory power for classification.
+    """)
 
     # Error rate distributions
     st.subheader("Error Rate Distributions")
